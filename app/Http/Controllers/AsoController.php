@@ -11,5 +11,6 @@ class AsoController extends Controller
     public function show()
     {
         return view('pages.aso');
+        //Teste
     }
 }
