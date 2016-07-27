@@ -17,6 +17,8 @@
 
 Route::get('/', ['uses' => 'AsoController@show', 'as' => 'dashboard.dashboard.home']);
 
+Route::get('/teste', ['uses' => 'Math\FormulasController@show', 'as' => 'teste']);
+
 
 Route::group(['prefix' => 'panel'], function () {
     Route::get('/obra', ['uses' => 'DashBoard\DashBoard\HomeController@show', 'as' => 'dashboard.dashboard.home']);
