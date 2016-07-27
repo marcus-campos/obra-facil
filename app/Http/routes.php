@@ -15,9 +15,13 @@
     return view('signin.auth.auth');
 });*/
 
-Route::get('/', ['uses' => 'AsoController@show', 'as' => 'dashboard.dashboard.home']);
+Route::get('/', ['uses' => 'PsoController@show', 'as' => 'home']);
 
-Route::get('/teste', ['uses' => 'Math\FormulasController@show', 'as' => 'teste']);
+Route::get('/pso', ['uses' => 'PsoController@show', 'as' => 'pso']);
+
+Route::get('/category', ['uses' => 'PsoController@category', 'as' => 'category']);
+
+Route::get('/service/{id}', ['uses' => 'PsoController@service', 'as' => 'service']);
 
 
 Route::group(['prefix' => 'panel'], function () {

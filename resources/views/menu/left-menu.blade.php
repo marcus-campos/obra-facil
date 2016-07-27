@@ -4,7 +4,7 @@
             <li class="text-muted menu-title">Painel</li>
 
             <li class="has_sub">
-                <a href="#" class="waves-effect"><i class="ti-ruler-pencil"></i><span>Planejando sua obra</span> </a>
+                <a href="{{ route('pso') }}" class="waves-effect"><i class="ti-ruler-pencil"></i><span>Planejando sua obra</span> </a>
             </li>
 
             <li class="has_sub">
