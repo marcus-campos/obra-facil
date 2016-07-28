@@ -10,22 +10,27 @@ use App\Http\Controllers\Controller;
 
 class FormulasController extends Controller
 {
-    public function show()
+    public function pso($serviceid, $metragem, $dia, $quantHoras)
     {
-        $this->pso('1','51','1','8');
-    }
-
-    public function pso($serviceid, $m, $dia, $quantHoras)
-    {
-        $service = \DB::table('service_has_labor')
-                        ->select('price_hour')
+        $services = \DB::table('service_has_labor')
+                        ->select('service_has_labor.price_hour as price', 'labor.name as labor', 'service.name as service')
                         ->rightJoin('service','service_has_labor.service_id', '=', 'service.id')
                         ->rightJoin('labor', 'service_has_labor.labor_id', '=','labor.id')
                         ->where('service_has_labor.service_id', '=', $serviceid)
-                        ->first();
+                        ->get();
 
+        $valores = array();
 
-        echo number_format(($total = $service->price_hour * $m / ($dia * $quantHoras)), 2, ',', '.');
+        foreach ($services as $service)
+        {
+            $total = $service->price * $metragem / ($dia * $quantHoras);
+            $valores[] = [
+                            "labor"=>$service->labor,
+                            "num_labor"=>(int)$total
+                         ];
+        }
+
+        return view('pages.result.pso.result')->with(['valores' => $valores, "labor"=>$service->service]);
 
     }
 }

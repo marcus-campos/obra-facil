@@ -28,6 +28,6 @@ class PsoController extends Controller
             ->select('id', 'name')
             ->where('id', '=', $id)
             ->get();
-        return json_encode($service);
+        return view('pages.selectboxes.pso.service')->with(['service' => $service]);
     }
 }

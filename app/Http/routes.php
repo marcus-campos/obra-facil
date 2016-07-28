@@ -17,6 +17,8 @@
 
 Route::get('/', ['uses' => 'PsoController@show', 'as' => 'home']);
 
+Route::get('/pso/{serviceid}/{metragem}/{dia}/{quantHoras}', ['uses' => 'Math\FormulasController@pso', 'as' => 'pso']);
+
 Route::get('/pso', ['uses' => 'PsoController@show', 'as' => 'pso']);
 
 Route::get('/category', ['uses' => 'PsoController@category', 'as' => 'category']);

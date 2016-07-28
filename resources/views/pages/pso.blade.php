@@ -40,15 +40,15 @@
         <div class="col-md-12">
             <div class="card-box">
 
-                <form id="basic-form" action="#">
+                <form id="basic-form">
                     <div>
                         <h3>Horas diárias</h3>
                         <section>
                             <div class="form-group clearfix">
-                                <label class="col-lg-3 control-label " for="userName">Quantas horas é esperado trabalhar em 01 dia para a obra?</label>
+                                <label class="col-lg-3 control-label " for="hour_day">Quantas horas é esperado trabalhar em 01 dia para a obra?</label>
                                 <div class="col-lg-9">
                                     <div class="form-group">
-                                        <select class="form-control" id="sel1">
+                                        <select class="form-control" id="hour_day" name="hour_day">
                                            @for($x = 1; $x <= 24; $x++)
                                                 <option value="{{ $x }}">{{ $x < 2? $x.' hora por dia': $x.' horas por dia' }}</option>
                                            @endfor
@@ -57,12 +57,12 @@
                                 </div>
                             </div>
                             <div class="form-group clearfix">
-                                <label class="col-lg-3 control-label " for="userName">Qual é o serviço a ser realizado?</label>
+                                <label class="col-lg-3 control-label " for="category">Qual é a categoria do serviço a ser realizado?</label>
                                 <div class="col-lg-9">
                                     <div class="form-group">
-                                        <select class="form-control" id="sel1">
+                                        <select class="form-control" id="category" name="category">
                                             @foreach($category as $cat)
-                                                <option value="#">Selecione um serviço</option>
+                                                <option value="#">Selecione uma categoria</option>
                                                 <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                                             @endforeach
                                         </select>
@@ -70,49 +70,35 @@
                                 </div>
                             </div>
                             <div class="form-group clearfix">
+                                <span id="service_title"></span>
+                                <div class="col-lg-9">
+                                    <div class="form-group">
+                                        <span id="service_span"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group clearfix">
                                 <label class="col-lg-3 control-label " for="userName">Em quantos dias a obra deve ser entregue?</label>
                                 <div class="col-lg-9">
                                     <div class="form-group">
-                                        <input id="name" name="name" type="text" class="required form-control" placeholder="1">
+                                        <input id="days" name="days" type="text" class="required form-control" placeholder="1" value="1" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group clearfix">
+                                <label class="col-lg-3 control-label " for="userName">Qual é o tamanho da obra (em metros)?</label>
+                                <div class="col-lg-9">
+                                    <div class="form-group">
+                                        <input id="meters" name="meters" type="text" class="required form-control" placeholder="1" value="20" required>
                                     </div>
                                 </div>
                             </div>
                         </section>
                         <h3>Resultado</h3>
                         <section>
-                            <div class="form-group clearfix">
-
-                                <label class="col-lg-2 control-label" for="name"> First name *</label>
-                                <div class="col-lg-10">
-                                    <input id="name" name="name" type="text" class="required form-control">
-                                </div>
-                            </div>
-                            <div class="form-group clearfix">
-                                <label class="col-lg-2 control-label " for="surname"> Last name *</label>
-                                <div class="col-lg-10">
-                                    <input id="surname" name="surname" type="text" class="required form-control">
-
-                                </div>
-                            </div>
-
-                            <div class="form-group clearfix">
-                                <label class="col-lg-2 control-label " for="email">Email *</label>
-                                <div class="col-lg-10">
-                                    <input id="email" name="email" type="text" class="required email form-control">
-                                </div>
-                            </div>
-
-                            <div class="form-group clearfix">
-                                <label class="col-lg-2 control-label " for="address">Address *</label>
-                                <div class="col-lg-10">
-                                    <input id="address" name="address" type="text" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="form-group clearfix">
-                                <label class="col-lg-12 control-label ">(*) Mandatory</label>
-                            </div>
-
+                            <span id="result">Preencha todos os campos da etapa anterior...</span>
                         </section>
                     </div>
                 </form>
@@ -144,4 +130,5 @@
 
     <!--wizard initialization-->
     <script src="{{ asset('assets/pages/jquery.wizard-init.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/ajxscript.js') }}"></script>
 @endsection
