@@ -1,10 +1,4 @@
 <div class="form-group clearfix">
-    <label class="col-lg-2 control-label text-center" for="serv"> Serviço:</label>
-    <div class="col-lg-10">
-        <h5>{{$labor}}</h5>
-    </div>
-</div>
-<div class="form-group clearfix">
     <h3 class="text-center">Mão de obra necessária</h3>
 </div>
 @foreach($valores as $valor)
@@ -17,3 +11,9 @@
         </div>
     </div>
 @endforeach
+<div class="form-group clearfix">
+    <label class="col-lg-2 control-label text-center" for="serv"> Serviço:</label>
+    <div class="col-lg-10">
+        <h5>{{$labor}}</h5>
+    </div>
+</div>
