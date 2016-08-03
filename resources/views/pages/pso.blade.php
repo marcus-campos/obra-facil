@@ -61,8 +61,8 @@
                                 <div class="col-lg-9">
                                     <div class="form-group">
                                         <select class="form-control" id="category" name="category">
+                                            <option value="#">Selecione uma categoria</option>
                                             @foreach($category as $cat)
-                                                <option value="#">Selecione uma categoria</option>
                                                 <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                                             @endforeach
                                         </select>
