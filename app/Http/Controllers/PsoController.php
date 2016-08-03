@@ -26,7 +26,7 @@ class PsoController extends Controller
     {
         $service = DB::table('service')
             ->select('id', 'name')
-            ->where('id', '=', $id)
+            ->where('category_id', '=', $id)
             ->get();
         return view('pages.selectboxes.pso.service')->with(['service' => $service]);
     }
