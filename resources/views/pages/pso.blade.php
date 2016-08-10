@@ -2,7 +2,7 @@
 @extends('index')
 @extends('menu.left-menu')
 <!--extends('topbar.user-action.user-action')-->
-@extends('topbar.logo')
+<!--extends('topbar.logo')-->
 @extends('css-js.header')
 @extends('css-js.javascript')
 <!--extends('topbar.notification.notification')-->

@@ -24,10 +24,23 @@ class FormulasController extends Controller
         foreach ($services as $service)
         {
             $total = $service->price * $metragem / ($dia * $quantHoras);
-            $valores[] = [
-                            "labor"=>$service->labor,
-                            "num_labor"=>(int)$total
-                         ];
+            if($total < 1.0)
+            {
+                $valores[] = [
+                    "labor"=>$service->labor,
+                    "num_labor"=>1,
+                    'real_labor' => $total
+                ];
+            }
+            else
+            {
+                $valores[] = [
+                    "labor"=>$service->labor,
+                    "num_labor"=> (int)$total,
+                    'real_labor' => $total
+                ];
+            }
+
         }
 
         return view('pages.result.pso.result')->with(['valores' => $valores, "labor"=>$service->service]);
