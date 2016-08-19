@@ -24,6 +24,8 @@ class FormulasController extends Controller
         foreach ($services as $service)
         {
             $total = $service->price * $metragem / ($dia * $quantHoras);
+            $total = number_format((float)$total, 1, '.', '');
+            $roundTotal = round($total,0,PHP_ROUND_HALF_EVEN);
             if($total < 1.0)
             {
                 $valores[] = [
@@ -34,9 +36,10 @@ class FormulasController extends Controller
             }
             else
             {
+
                 $valores[] = [
                     "labor"=>$service->labor,
-                    "num_labor"=> (int)$total,
+                    "num_labor"=> $roundTotal,
                     'real_labor' => $total
                 ];
             }

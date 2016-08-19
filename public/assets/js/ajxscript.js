@@ -1,4 +1,4 @@
-$('#category').change(function() {
+$("#category").on("change paste keyup", function() {
     var hour_day = $('#hour_day').val();
     var category = $('#category').val();
     var service = $('#service').val();
@@ -6,14 +6,20 @@ $('#category').change(function() {
     var meters = $('#meters').val();
 
     getServices(category);
+
+    if(hour_day != null && service != null && days != '' && meters != '')
+        refreshResult(hour_day, service, days, meters);
+    else
+        $('#result').html('Preencha todos os campos da etapa anterior...');
 });
 
-$('#service').change(function() {
+$("#service").on("change paste keyup", function() {
     var hour_day = $('#hour_day').val();
     var service = $('#service').val();
     var days = $('#days').val();
     var meters = $('#meters').val();
 
+    alert('marcus');
     if(hour_day != null && service != null && days != '' && meters != '')
         refreshResult(hour_day, service, days, meters);
     else
