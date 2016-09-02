@@ -9,7 +9,7 @@ Route::group(['prefix' => 'pso'], function(){
 
 Route::group(['prefix' => 'aso'], function(){
     Route::get('/service/{serviceid}', ['uses' => 'Math\FormulasController@asoWorkers', 'as' => 'aso']);
-    Route::get('/{serviceid}/{metragem}/{quantidade}', ['uses' => 'Math\FormulasController@aso', 'as' => 'aso']);
+    Route::get('/{serviceid}/{metragem}/{dia}/{quantHoras}', ['uses' => 'Math\FormulasController@aso', 'as' => 'aso']);
     Route::get('/', ['uses' => 'AsoController@show', 'as' => 'aso']);
 });
 

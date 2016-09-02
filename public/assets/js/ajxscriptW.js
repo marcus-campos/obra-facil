@@ -2,14 +2,18 @@ $("#category").on("change paste keyup", function() {
     var hour_day = $('#hour_day').val();
     var category = $('#category').val();
     var service = $('#service').val();
+    var days = $('#days').val();
     var meters = $('#meters').val();
 
     getServices(category);
 
-    if(hour_day != null && service != null && meters != '')
+    if(hour_day != null && service != null && days != '' && meters != '')
+    {
         refreshResult(hour_day, service, days, meters);
+        getWorkers(service);
+    }
     else
-        $('#workers').html('Preencha todos os campos da etapa anterior...');
+        $('#result').html('Preencha todos os campos da etapa anterior...');
 });
 
 $("#service").on("change paste keyup", function() {
@@ -18,10 +22,13 @@ $("#service").on("change paste keyup", function() {
     var days = $('#days').val();
     var meters = $('#meters').val();
 
-    if(hour_day != null && service != null && meters != '')
+    if(hour_day != null && service != null && days != '' && meters != '')
+    {
         refreshResult(hour_day, service, days, meters);
+        getWorkers(service);
+    }
     else
-        $('#workers').html('Preencha todos os campos da etapa anterior...');
+        $('#result').html('Preencha todos os campos da etapa anterior...');
 });
 
 $("#hour_day").on("change paste keyup", function() {
@@ -29,10 +36,27 @@ $("#hour_day").on("change paste keyup", function() {
     var service = $('#service').val();
     var days = $('#days').val();
     var meters = $('#meters').val();
-    if(hour_day != null && service != null && meters != '')
+    if(hour_day != null && service != null && days != '' && meters != '')
+    {
         refreshResult(hour_day, service, days, meters);
+        getWorkers(service);
+    }
     else
-        $('#workers').html('Preencha todos os campos da etapa anterior...');
+        $('#result').html('Preencha todos os campos da etapa anterior...');
+});
+
+$("#days").on("change paste keyup", function() {
+    var hour_day = $('#hour_day').val();
+    var service = $('#service').val();
+    var days = $('#days').val();
+    var meters = $('#meters').val();
+    if(hour_day != null && service != null && days != '' && meters != '')
+    {
+        getWorkers(service);
+        refreshResult(hour_day, service, days, meters);
+    }
+    else
+        $('#result').html('Preencha todos os campos da etapa anterior...');
 });
 
 $("#meters").on("change paste keyup", function() {
@@ -40,15 +64,14 @@ $("#meters").on("change paste keyup", function() {
     var service = $('#service').val();
     var days = $('#days').val();
     var meters = $('#meters').val();
-    if(hour_day != null && service != null && meters != '')
+    if(hour_day != null && service != null && days != '' && meters != '')
     {
+        refreshResult(hour_day, service, days, meters);
         getWorkers(service);
-        refreshResult(hour_day, service, meters);
     }
     else
-        $('#workers').html('Preencha todos os campos da etapa anterior...');
+        $('#result').html('Preencha todos os campos da etapa anterior...');
 });
-
 
 function getServices(category) {
     $.ajax({
@@ -64,9 +87,9 @@ function getServices(category) {
     });
 }
 
-function refreshResult(hour_day, service, meters) {
+function refreshResult(hour_day, service, labor, meters) {
     $.ajax({
-        url: './aso/'+service+"/"+meters+"/"+hour_day,
+        url: './aso/'+service+"/"+meters+"/"+labor+"/"+hour_day,
         type: 'GET',
         success : function (resp) {
             $('#result').html(resp);

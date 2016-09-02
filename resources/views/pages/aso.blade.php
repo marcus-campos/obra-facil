@@ -77,7 +77,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="form-group clearfix">
                                 <label class="col-lg-3 control-label " for="userName">Qual é o tamanho da obra (em metros)?</label>
                                 <div class="col-lg-9">

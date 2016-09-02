@@ -59,7 +59,7 @@ class FormulasController extends Controller
         return view('pages.result.aso.result1', compact('services'));
     }
 
-    public function aso($serviceid, $metragem, $quantidade)
+    public function aso($serviceid, $metragem, $dia, $quantHoras)
     {
         $services = \DB::table('service_has_labor')
             ->select('service_has_labor.price_hour as price', 'labor.name as labor', 'service.name as service')
@@ -72,7 +72,7 @@ class FormulasController extends Controller
 
         foreach ($services as $service)
         {
-            $total = $service->price * $metragem / ($quantHoras);
+            $total = $service->price * $metragem / ($dia * $quantHoras);
             $total = number_format((float)$total, 1, '.', '');
             $roundTotal = round($total,0,PHP_ROUND_HALF_EVEN);
             if($total < 1.0)
@@ -91,8 +91,8 @@ class FormulasController extends Controller
                     'real_labor' => $total
                 ];
             }
-
         }
+
 
         return view('pages.result.pso.result')->with(['valores' => $valores, "labor"=>$service->service]);
 
