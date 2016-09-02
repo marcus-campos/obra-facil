@@ -11,7 +11,7 @@ class PsoController extends Controller
 {
     public function show()
     {
-        return view('pages.pso')->with(['title' => 'Planejando a sua obra', 'system' => 'Projeto Acadêmico UnifaceX', 'section' => 'Planejando sua obra', 'category' => $this->category()]);
+        return view('pages.pso')->with(['title' => 'Planejando a sua obra', 'system' => 'Obra fácil', 'section' => 'Planejando sua obra', 'category' => $this->category()]);
     }
 
     public function category()

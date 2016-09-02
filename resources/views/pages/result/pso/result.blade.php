@@ -6,7 +6,7 @@
 </div>
 <div class="panel panel-primary">
     <!-- Default panel contents -->
-    <div class="panel-heading"><strong><b>SERVIÇO:</b></strong> {{$labor}}</div>
+    <div class="panel-heading"><strong><b>Mão de obra necessária:</b></strong> {{$labor}}</div>
         <table class="table">
             <thead>
             <tr>

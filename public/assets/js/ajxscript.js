@@ -19,7 +19,6 @@ $("#service").on("change paste keyup", function() {
     var days = $('#days').val();
     var meters = $('#meters').val();
 
-    alert('marcus');
     if(hour_day != null && service != null && days != '' && meters != '')
         refreshResult(hour_day, service, days, meters);
     else
@@ -37,7 +36,6 @@ $("#hour_day").on("change paste keyup", function() {
         $('#result').html('Preencha todos os campos da etapa anterior...');
 });
 
-
 $("#days").on("change paste keyup", function() {
     var hour_day = $('#hour_day').val();
     var service = $('#service').val();
@@ -49,7 +47,6 @@ $("#days").on("change paste keyup", function() {
         $('#result').html('Preencha todos os campos da etapa anterior...');
 });
 
-
 $("#meters").on("change paste keyup", function() {
     var hour_day = $('#hour_day').val();
     var service = $('#service').val();
@@ -60,7 +57,6 @@ $("#meters").on("change paste keyup", function() {
     else
         $('#result').html('Preencha todos os campos da etapa anterior...');
 });
-
 
 function getServices(category) {
     $.ajax({
