@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Str;
 
 class FormulasController extends Controller
 {
@@ -59,42 +61,44 @@ class FormulasController extends Controller
         return view('pages.result.aso.result1', compact('services'));
     }
 
-    public function aso($serviceid, $metragem, $dia, $quantHoras)
+    public function aso()
     {
-        $services = \DB::table('service_has_labor')
-            ->select('service_has_labor.price_hour as price', 'labor.name as labor', 'service.name as service')
-            ->rightJoin('service','service_has_labor.service_id', '=', 'service.id')
-            ->rightJoin('labor', 'service_has_labor.labor_id', '=','labor.id')
-            ->where('service_has_labor.service_id', '=', $serviceid)
-            ->get();
-
-        $valores = array();
-
-        foreach ($services as $service)
+        if(\Request::ajax())
         {
-            $total = $service->price * $metragem / ($dia * $quantHoras);
-            $total = number_format((float)$total, 1, '.', '');
-            $roundTotal = round($total,0,PHP_ROUND_HALF_EVEN);
-            if($total < 1.0)
+            $data = Input::all();
+
+             $services = \DB::table('service_has_labor')
+                ->select('service_has_labor.price_hour as price', 'labor.name as labor', 'service.name as service')
+                ->rightJoin('service','service_has_labor.service_id', '=', 'service.id')
+                ->rightJoin('labor', 'service_has_labor.labor_id', '=','labor.id')
+                ->where('service_has_labor.service_id', '=', $data['service'])
+                ->get();
+
+            $valores = array();
+
+            $x = 0;
+            foreach ($services as $service)
             {
-                $valores[] = [
-                    "labor"=>$service->labor,
-                    "num_labor"=>1,
-                    'real_labor' => $total
-                ];
+                if(count($data['labors']) >= $x)
+                {
+                    $total = $service->price * $data['meters'] / ($data['labors'][$x]['val'] * $data['hourday']);
+                    $total = number_format((float)$total, 1, '.', '');
+                    $roundTotal = round($total, 0, PHP_ROUND_HALF_EVEN);
+
+                    $valores[] = [
+                        "labor" => $service->labor,
+                        "num_labor" => $data['labors'][$x]['val'],
+                        'real_labor' => $roundTotal
+                    ];
+                }
+
+                $x++;
             }
-            else
-            {
-                $valores[] = [
-                    "labor"=>$service->labor,
-                    "num_labor"=> $roundTotal,
-                    'real_labor' => $total
-                ];
-            }
+
+
+            return view('pages.result.aso.lastresult')->with(['valores' => $valores, "labor"=>$service->service]);
+
         }
-
-
-        return view('pages.result.pso.result')->with(['valores' => $valores, "labor"=>$service->service]);
 
     }
 

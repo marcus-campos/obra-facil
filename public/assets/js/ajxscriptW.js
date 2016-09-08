@@ -138,11 +138,34 @@ $(document).on('change paste keyup', '#vidraceiro', function(){
     addLabor('vidraceiro');
 });
 
+function lastResult() {
+
+    var hourDay = $('#hour_day').val();
+    var service = $('#service').val();
+    var days = $('#days').val();
+    var meters = $('#meters').val();
+
+    $.ajax({
+        url: './aso/calc',
+        type: 'POST',
+        data: {
+            meters: meters,
+            service: service,
+            days: days,
+            hourday: hourDay,
+            labors: labors
+        },
+        success : function (resp) {
+            $('#result').html(resp);
+        }
+    });
+}
+
 function addLabor(laborType) {
     labors.push({
             labor: laborType,
             val: $('#'+laborType).val()
         });
 
-    console.log(labors);
+    lastResult();
 }

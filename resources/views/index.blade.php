@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+        <meta name="_token" content="{!! csrf_token() !!}"/>
         @yield('header')
 	</head>
 
@@ -224,6 +225,12 @@
         <!-- jQuery  -->
 
         @yield('javascript')
+
+        <script type="text/javascript">
+            $.ajaxSetup({
+                headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+            });
+        </script>
 	
 	</body>
 </html>
