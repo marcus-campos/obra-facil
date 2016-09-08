@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="e265beb3-4886-4044-a94f-c5527473b7e9" name="Devyzi - ObraFacil" url="http://www.devyzi.com">
+        <fileTransfer host="www.devyzi.com" port="22" rootFolder="/var/www/html" accessType="SFTP" password="dfcedfcfdfdcdfd9dfc3dfd9df99df9fdf9ddfeadf89" username="root">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="2984a7e6-3363-4021-be63-4e5bcc36f35e" name="Devyzi" url="http://www.devyzi.com">
+        <fileTransfer host="www.devyzi.com" port="22" rootFolder="/var/www/html" accessType="SFTP" password="dfcedfcfdfdcdfd9dfc3dfd9df99df9fdf9ddfeadf89" username="root">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

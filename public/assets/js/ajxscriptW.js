@@ -1,3 +1,5 @@
+var labors = new Array();
+
 $("#category").on("change paste keyup", function() {
     var hour_day = $('#hour_day').val();
     var category = $('#category').val();
@@ -109,29 +111,38 @@ function getWorkers(service)
 }
 
 $(document).on('change paste keyup', '#armador', function(){
-    alert('oi');
+    addLabor('armador');
 });
 
 $(document).on('change paste keyup', '#carpinteiro', function(){
-    alert('oi');
+    addLabor('carpinteiro');
 });
 
 $(document).on('change paste keyup', '#eletricista', function(){
-    alert('oi');
+    addLabor('eletricista');
 });
 
 $(document).on('change paste keyup', '#pedreiro', function(){
-    alert('oi');
+    addLabor('pedreiro');
 });
 
 $(document).on('change paste keyup', '#pintor', function(){
-    alert('oi');
+    addLabor('pintor');
 });
 
 $(document).on('change paste keyup', '#servente', function(){
-    alert('oi');
+    addLabor('servente');
 });
 
 $(document).on('change paste keyup', '#vidraceiro', function(){
-    alert('oi');
+    addLabor('vidraceiro');
 });
+
+function addLabor(laborType) {
+    labors.push({
+            labor: laborType,
+            val: $('#'+laborType).val()
+        });
+
+    console.log(labors);
+}
