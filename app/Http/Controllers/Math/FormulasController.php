@@ -93,6 +93,7 @@ class FormulasController extends Controller
                 }
 
                 $x++;
+
             }
 
 

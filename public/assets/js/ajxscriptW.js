@@ -11,7 +11,7 @@ $("#category").on("change paste keyup", function() {
 
     if(hour_day != null && service != null && days != '' && meters != '')
     {
-        refreshResult(hour_day, service, days, meters);
+        //refreshResult(hour_day, service, days, meters);
         getWorkers(service);
     }
     else
@@ -26,7 +26,7 @@ $("#service").on("change paste keyup", function() {
 
     if(hour_day != null && service != null && days != '' && meters != '')
     {
-        refreshResult(hour_day, service, days, meters);
+        //refreshResult(hour_day, service, days, meters);
         getWorkers(service);
     }
     else
@@ -40,7 +40,7 @@ $("#hour_day").on("change paste keyup", function() {
     var meters = $('#meters').val();
     if(hour_day != null && service != null && days != '' && meters != '')
     {
-        refreshResult(hour_day, service, days, meters);
+        //refreshResult(hour_day, service, days, meters);
         getWorkers(service);
     }
     else
@@ -55,7 +55,7 @@ $("#days").on("change paste keyup", function() {
     if(hour_day != null && service != null && days != '' && meters != '')
     {
         getWorkers(service);
-        refreshResult(hour_day, service, days, meters);
+        //refreshResult(hour_day, service, days, meters);
     }
     else
         $('#result').html('Preencha todos os campos da etapa anterior...');
@@ -68,7 +68,7 @@ $("#meters").on("change paste keyup", function() {
     var meters = $('#meters').val();
     if(hour_day != null && service != null && days != '' && meters != '')
     {
-        refreshResult(hour_day, service, days, meters);
+        //refreshResult(hour_day, service, days, meters);
         getWorkers(service);
     }
     else
@@ -89,7 +89,7 @@ function getServices(category) {
     });
 }
 
-function refreshResult(hour_day, service, labor, meters) {
+/*function refreshResult(hour_day, service, labor, meters) {
     $.ajax({
         url: './aso/'+service+"/"+meters+"/"+labor+"/"+hour_day,
         type: 'GET',
@@ -97,7 +97,7 @@ function refreshResult(hour_day, service, labor, meters) {
             $('#result').html(resp);
         }
     });
-}
+}*/
 
 function getWorkers(service)
 {

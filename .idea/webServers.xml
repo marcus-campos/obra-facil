@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="e265beb3-4886-4044-a94f-c5527473b7e9" name="Devyzi - ObraFacil" url="http://www.devyzi.com">
-        <fileTransfer host="www.devyzi.com" port="22" rootFolder="/var/www/html" accessType="SFTP" password="dfcedfcfdfdcdfd9dfc3dfd9df99df9fdf9ddfeadf89" username="root">
+        <fileTransfer host="www.devyzi.com" port="22" rootFolder="/var/www/html/clientes/obrafacil" accessType="SFTP" password="dfcedfcfdfdcdfd9dfc3dfd9df99df9fdf9ddfeadf89" username="root">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" />
           </advancedOptions>
