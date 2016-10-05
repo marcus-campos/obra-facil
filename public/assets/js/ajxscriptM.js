@@ -11,9 +11,10 @@ $("#category").on("change paste keyup", function() {
         $('#result').html('Preencha todos os campos da etapa anterior...');
 });
 
-$("#service").on("change paste keyup", function() {
+$(document).on("change paste keyup", "#service", function() {
     var service = $('#service').val();
     var meters = $('#meters').val();
+    refreshService(service);
 
     if(service != null && meters != '')
         refreshResult(service, meters);
@@ -50,6 +51,25 @@ function refreshResult(service, meters) {
         type: 'GET',
         success : function (resp) {
             $('#result').html(resp);
+        }
+    });
+}
+
+
+function refreshService(id) {
+    $.ajax({
+        url: './pservice/'+id,
+        type: 'GET',
+        success: function (resp) {
+            $.ajax({
+                url: './punit/'+id,
+                type: 'GET',
+                success: function (resp) {
+                    $('#unit').html(resp);
+                }
+            });
+            $('#pservice').html(resp);
+            $('#labelpservice').html('Serviço selecionado: ');
         }
     });
 }

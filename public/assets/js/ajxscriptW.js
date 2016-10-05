@@ -18,11 +18,12 @@ $("#category").on("change paste keyup", function() {
         $('#result').html('Preencha todos os campos da etapa anterior...');
 });
 
-$("#service").on("change paste keyup", function() {
+$(document).on("change paste keyup", "#service", function() {
     var hour_day = $('#hour_day').val();
     var service = $('#service').val();
     var days = $('#days').val();
     var meters = $('#meters').val();
+    refreshService(service);
 
     if(hour_day != null && service != null && days != '' && meters != '')
     {
@@ -106,36 +107,44 @@ function getWorkers(service)
         type: 'GET',
         success: function (resp) {
             $('#workers').html(resp);
+            console.log(hour_day);
         }
     });
 }
 
 $(document).on('change paste keyup', '#armador', function(){
     addLabor('armador');
+    lastResult();
 });
 
 $(document).on('change paste keyup', '#carpinteiro', function(){
     addLabor('carpinteiro');
+    lastResult();
 });
 
 $(document).on('change paste keyup', '#eletricista', function(){
     addLabor('eletricista');
+    lastResult();
 });
 
 $(document).on('change paste keyup', '#pedreiro', function(){
     addLabor('pedreiro');
+    lastResult();
 });
 
 $(document).on('change paste keyup', '#pintor', function(){
     addLabor('pintor');
+    lastResult();
 });
 
 $(document).on('change paste keyup', '#servente', function(){
     addLabor('servente');
+    lastResult();
 });
 
 $(document).on('change paste keyup', '#vidraceiro', function(){
     addLabor('vidraceiro');
+    lastResult();
 });
 
 function lastResult() {
@@ -162,10 +171,37 @@ function lastResult() {
 }
 
 function addLabor(laborType) {
-    labors.push({
+    var labor = labors.map(function(e){return e.labor}).indexOf(laborType);
+    console.log(labor);
+    if(labor == -1)
+    {
+        labors.push({
             labor: laborType,
             val: $('#'+laborType).val()
         });
+    }
+    else{
+        labors[labor].val = $('#'+laborType).val();
+    }
 
     lastResult();
+}
+
+
+function refreshService(id) {
+    $.ajax({
+        url : './pservice/'+id,
+        type: 'GET',
+        success: function (resp) {
+            $.ajax({
+                url: './punit/'+id,
+                type: 'GET',
+                success: function (resp) {
+                    $('#unit').html(resp);
+                }
+            });
+            $('#pservice').html(resp);
+            $('#labelpservice').html('Serviço selecionado: ');
+        }
+    });
 }

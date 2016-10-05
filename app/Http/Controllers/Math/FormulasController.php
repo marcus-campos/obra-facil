@@ -21,12 +21,23 @@ class FormulasController extends Controller
             ->where('service_has_labor.service_id', '=', $serviceid)
             ->get();
 
+        $servicex = \DB::table('service')
+            ->select(\DB::raw("CASE measure 
+                                WHEN '0' THEN 'M' 
+                                WHEN '1' THEN 'M²' 
+                                WHEN '2' THEN 'M³' 
+                                WHEN '3' THEN 'UN' 
+                                WHEN '4' THEN 'PT' 
+                                END as measure" ))
+            ->where('id', '=', $serviceid)
+            ->get();
+
         $valores = array();
 
         foreach ($services as $service)
         {
             $total = $service->price * $metragem / ($dia * $quantHoras);
-            $total = number_format((float)$total, 1, '.', '');
+            $total = number_format((float)$total, 2, '.', '');
             $roundTotal = round($total,0,PHP_ROUND_HALF_EVEN);
             if($total < 1.0)
             {
@@ -46,7 +57,7 @@ class FormulasController extends Controller
             }
         }
 
-        return view('pages.result.pso.result')->with(['valores' => $valores, "labor"=>$service->service]);
+        return view('pages.result.pso.result')->with(['valores' => $valores, 'labor' => $service->service, 'horas' => $quantHoras, 'meters' => $metragem, 'unit' => $servicex[0]->measure]);
     }
 
     public function asoWorkers($serviceid)
@@ -66,7 +77,6 @@ class FormulasController extends Controller
         if(\Request::ajax())
         {
             $data = Input::all();
-
             $services = \DB::table('service_has_labor')
                 ->select('service_has_labor.price_hour as price', 'labor.name as labor', 'service.name as service')
                 ->rightJoin('service','service_has_labor.service_id', '=', 'service.id')
@@ -74,22 +84,38 @@ class FormulasController extends Controller
                 ->where('service_has_labor.service_id', '=', $data['service'])
                 ->get();
 
+            $servicex = \DB::table('service')
+                ->select(\DB::raw("CASE measure 
+                                WHEN '0' THEN 'M' 
+                                WHEN '1' THEN 'M²' 
+                                WHEN '2' THEN 'M³' 
+                                WHEN '3' THEN 'UN' 
+                                WHEN '4' THEN 'PT' 
+                                END as measure" ))
+                ->where('id', '=', $data['service'])
+                ->get();
+
             $valores = array();
 
             $x = 0;
+            $top = 0;
             foreach ($services as $service)
             {
                 if(count($data['labors']) >= $x)
                 {
                     $total = $service->price * $data['meters'] / ($data['labors'][$x]['val'] * $data['hourday']);
-                    $total = number_format((float)$total, 1, '.', '');
+                    $total = number_format((float)$total, 2, '.', '');
                     $roundTotal = round($total, 0, PHP_ROUND_HALF_EVEN);
-
+                    if ($total > $top)
+                    {
+                        $top = $roundTotal;
+                    }
                     if($roundTotal < 1) {
                         $valores[] = [
                             "labor" => $service->labor,
                             "num_labor" => $data['labors'][$x]['val'],
-                            'real_labor' => $total
+                            'real_labor' => $total,
+                            'total' => $total
                         ];
                     }
                     else
@@ -97,17 +123,16 @@ class FormulasController extends Controller
                         $valores[] = [
                             "labor" => $service->labor,
                             "num_labor" => $data['labors'][$x]['val'],
-                            'real_labor' => $roundTotal
+                            'real_labor' => $roundTotal,
+                            'total' => $total
+
                         ];
                     }
                 }
-
                 $x++;
-
             }
 
-
-            return view('pages.result.aso.lastresult')->with(['valores' => $valores, "labor"=>$service->service]);
+            return view('pages.result.aso.lastresult')->with(['valores' => $valores, "labor"=>$service->service, 'horas' => $data['hourday'], 'meters' => $data['meters'], 'unit' => $servicex[0]->measure, 'top' => $top]);
 
         }
 
@@ -122,6 +147,24 @@ class FormulasController extends Controller
             ->where('service_has_material.service_mat_id', '=', $serviceid)
             ->get();
 
+        $servicex = \DB::table('service_has_labor')
+            ->select('service_has_labor.price_hour as price', 'labor.name as labor', 'service.name as service')
+            ->rightJoin('service','service_has_labor.service_id', '=', 'service.id')
+            ->rightJoin('labor', 'service_has_labor.labor_id', '=','labor.id')
+            ->where('service_has_labor.service_id', '=', $serviceid)
+            ->get();
+
+        $servicexx = \DB::table('service')
+            ->select(\DB::raw("CASE measure 
+                                WHEN '0' THEN 'M' 
+                                WHEN '1' THEN 'M²' 
+                                WHEN '2' THEN 'M³' 
+                                WHEN '3' THEN 'UN' 
+                                WHEN '4' THEN 'PT' 
+                                END as measure" ))
+            ->where('id', '=', $serviceid)
+            ->get();
+
         $valores = array();
 
         foreach ($services as $service)
@@ -134,6 +177,6 @@ class FormulasController extends Controller
             ];
         }
 
-        return view('pages.result.mso.result')->with(['valores' => $valores]);
+        return view('pages.result.mso.result')->with(['valores' => $valores, "labor"=>$servicex[0]->service, 'meters' => $metragem, 'unit' => $servicexx[0]->measure]);
     }
 }

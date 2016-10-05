@@ -30,4 +30,29 @@ class PsoController extends Controller
             ->get();
         return view('pages.selectboxes.pso.service')->with(['service' => $service]);
     }
+
+    public function pservice($id)
+    {
+        $service = DB::table('service')
+            ->select('name')
+            ->where('id', '=', $id)
+            ->get();
+        return '<p>'.$service[0]->name.'</p>';
+    }
+
+    public function punit($id)
+    {
+        $service = DB::table('service')
+            ->select(DB::raw("CASE measure 
+                                WHEN '0' THEN 'M' 
+                                WHEN '1' THEN 'M²' 
+                                WHEN '2' THEN 'M³' 
+                                WHEN '3' THEN 'UN' 
+                                WHEN '4' THEN 'PT' 
+                                END as measure" ))
+            ->where('id', '=', $id)
+            ->get();
+        return $service[0]->measure;
+    }
+
 }

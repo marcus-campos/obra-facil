@@ -21,3 +21,5 @@ Route::group(['prefix' => 'mso'], function(){
 Route::get('/category', ['uses' => 'PsoController@category', 'as' => 'category']);
 
 Route::get('/service/{id}', ['uses' => 'PsoController@service', 'as' => 'service']);
+Route::get('/pservice/{id}', ['uses' => 'PsoController@pservice', 'as' => 'pservice']);
+Route::get('/punit/{id}', ['uses' => 'PsoController@punit', 'as' => 'punit']);

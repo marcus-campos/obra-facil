@@ -78,11 +78,17 @@
                                 </div>
                             </div>
                             <div class="form-group clearfix">
-                                <label class="col-lg-3 control-label " for="userName">Qual é o tamanho da obra (em metros)?</label>
+                                <label class="col-lg-3 control-label " for="userName">Inserir os quantiativos referente ao serviço (<span id="unit"></span>)?</label>
                                 <div class="col-lg-9">
                                     <div class="form-group">
                                         <input id="meters" name="meters" type="text" class="required form-control" placeholder="1" value="20" required>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="form-group clearfix">
+                                <label id="labelpservice" class="col-lg-3 control-label " for="hour_day" style="color:red"></label>
+                                <div class="col-lg-9">
+                                    <span id="pservice"></span>
                                 </div>
                             </div>
                         </section>

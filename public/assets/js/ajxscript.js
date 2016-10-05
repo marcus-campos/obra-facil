@@ -13,14 +13,18 @@ $("#category").on("change paste keyup", function() {
         $('#result').html('Preencha todos os campos da etapa anterior...');
 });
 
-$("#service").on("change paste keyup", function() {
+$(document).on("change paste keyup", "#service", function() {
     var hour_day = $('#hour_day').val();
     var service = $('#service').val();
     var days = $('#days').val();
     var meters = $('#meters').val();
+    refreshService(service);
 
     if(hour_day != null && service != null && days != '' && meters != '')
+    {
+
         refreshResult(hour_day, service, days, meters);
+    }
     else
         $('#result').html('Preencha todos os campos da etapa anterior...');
 });
@@ -78,6 +82,24 @@ function refreshResult(hour_day, service, days, meters) {
         type: 'GET',
         success : function (resp) {
             $('#result').html(resp);
+        }
+    });
+}
+
+function refreshService(id) {
+    $.ajax({
+        url: './pservice/'+id,
+        type: 'GET',
+        success: function (resp) {
+            $.ajax({
+                url: './punit/'+id,
+                type: 'GET',
+                success: function (resp) {
+                    $('#unit').html(resp);
+                }
+            });
+            $('#pservice').html(resp);
+            $('#labelpservice').html('Serviço selecionado: ');
         }
     });
 }
